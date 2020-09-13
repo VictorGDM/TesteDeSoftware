@@ -36,7 +36,7 @@ class ContaTest {
 
 	/*
 	 * Neste caso de teste, estamos verificando se quando não especificamos o saldo
-	 * no momento da criação da conta, o metodo cria a conta com o saldo 0 por
+	 * no momento da criação da conta, o método cria a conta com o saldo 0 por
 	 * padrão.
 	 */
 	@Test
@@ -47,11 +47,11 @@ class ContaTest {
 	}
 
 	/*
-	 * 
+	 * Neste caso de teste, estamos verificando se quando tentamos creditar valores
+	 * maiores ou menores que o permitido, o método não poderá ser concluido.
 	 */
-	
 	@ParameterizedTest
-	@ValueSource(doubles = {-500 , 0, 5000})
+	@ValueSource(doubles = { -500, 0, 5000 })
 	void testCreditarValorMaiorOuMenorQueOPermitido(double dbl) throws Exception {
 		Conta conta = new Conta("12345", 100);
 
@@ -67,8 +67,8 @@ class ContaTest {
 	}
 
 	/*
-	 * Neste caso de teste,estamos verificando se quando debitamos um valor que
-	 * deixe a conta negativada com mais de -300, o metodo não irá concluir o
+	 * Neste caso de teste, estamos verificando se quando debitamos um valor que
+	 * deixe a conta negativada com mais de -300, o método não irá concluir o
 	 * debito.
 	 */
 	@Test
