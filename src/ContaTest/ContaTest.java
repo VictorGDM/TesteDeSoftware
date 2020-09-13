@@ -12,11 +12,6 @@ import Conta.Conta;
 class ContaTest {
 
 	/*
-	 * Neste caso de teste, estamos verificando se é possível a criação de conta com
-	 * menos ou mais que 5 dígitos.
-	 */
-
-	/*
 	 * Neste caso de teste, estamos verificando se é possível só a criação de contas
 	 * com 5 dígitos.
 	 */
@@ -29,13 +24,24 @@ class ContaTest {
 	}
 
 	/*
+	 * Neste caso de teste, estamos verificando se quando uma conta é criada com o
+	 * valor de saldo igual a zero, se realmente ela é criada.
+	 */
+	@Test
+	void testContaCriadaComSaldoIgualAZero() throws Exception {
+		Conta conta = new Conta("12345", 0);
+
+		assertEquals(0, conta.getSaldo());
+	}
+
+	/*
 	 * Neste caso de teste, estamos verificando se quando não especificamos o saldo
 	 * no momento da criação da conta, o metodo cria a conta com o saldo 0 por
 	 * padrão.
 	 */
 	@Test
 	void testContaCriadaSemDefinirSaldo() throws Exception {
-		Conta conta = new Conta("11111");
+		Conta conta = new Conta("12345");
 
 		assertEquals(0, conta.getSaldo());
 	}
@@ -43,17 +49,19 @@ class ContaTest {
 	/*
 	 * 
 	 */
-	@Test
-	void testCreditar() throws Exception {
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {-500 , 0, 5000})
+	void testCreditarValorMaiorOuMenorQueOPermitido(double dbl) throws Exception {
 		Conta conta = new Conta("12345", 100);
 
 		Exception exception = assertThrows(Exception.class, () -> {
 
-			conta.creditar(-50);
-			assertEquals(100, conta.getSaldo());
+			conta.creditar(dbl);
 
 		});
 
+		assertEquals("credito impossível!", exception.getMessage());
 		assertEquals(100, conta.getSaldo());
 
 	}
